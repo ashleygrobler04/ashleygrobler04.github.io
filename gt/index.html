@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Guitar Tuner</title>
+</head>
+<body>
+    <h1> Welcome to Online Guitar Tuner.</h1>
+    <p> Tune your guitar from any where.<br/>
+    <b> 
+        <ol>
+            <li> From your Computer,</li>
+            <li> From your phone,</li>
+            <li> From your TV,</li>
+            <li> From any device that has an internet browser.</li>
+        </ol>
+    </b></p>
+    <hr>
+    <label for="select_string"> Select a string.</label>
+    <select id="select_string">
+        <option> String 6(E2)</option>
+        <option> String 5 (A2)</option>
+        <option> String 4 (D3)</option>
+        <option> String 3 (G3)</option>
+        <option> String 2 (E3)</option>
+        <option> String 1 (E4)</option>
+    </select>
+    <button onclick="play_audio('./strings/s'+document.getElementById('select_string').value[7]+'.mp3');"> Play</button>
+    <script>
+        function play_audio(file) {
+            str=new Audio(file);
+            str.play();
+            console.log(file);
+        }
+    </script>
+    <div id="res"> Results</div>
+</body>
+</html>
