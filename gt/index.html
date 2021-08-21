@@ -8,15 +8,15 @@
 </head>
 <body>
     <h1> Welcome to Online Guitar Tuner.</h1>
-    <p> Tune your guitar from any where.<br/>
-    <b> 
-        <ol>
-            <li> From your Computer,</li>
-            <li> From your phone,</li>
-            <li> From your TV,</li>
-            <li> From any device that has an internet browser.</li>
-        </ol>
-    </b></p>
+    <i> Click "details" if there's something you don't understand.</i>
+    <details>
+        <h3> How it works</h3><br/>
+        <p> The dropDown is used to select your string.<br/>
+        The loop audio checkbox allows you to loop the audio instead of pressing the play button each time.<br/>
+        The play button, like the name says, plays the sound to whitch your selected string needs to be tuned.
+        If you want to stop the audio at any time, click the stop button.
+    </p>
+    </details>
     <hr>
     <label for="select_string"> Select a string.</label>
     <select id="select_string">
@@ -27,14 +27,29 @@
         <option> String 2 (B3)</option>
         <option> String 1 (E4)</option>
     </select>
-    <button onclick="play_audio('./strings/s'+document.getElementById('select_string').value[7]+'.mp3');"> Play</button>
+    <input type="checkbox" id="checkme"/>
+    <label for="checkme"> Loop audio</label>
+    <button onclick="sound.play('./strings/s'+document.getElementById('select_string').value[7]+'.mp3');"> Play</button>
+    <button onclick="sound.stop('./strings/s'+document.getElementById('select_string').value[7]+'.mp3')";> Stop audio</button>
     <script>
-        function play_audio(file) {
-            str=new Audio(file);
-            str.play();
-            console.log(file);
+        const sound={
+    aud : new Audio(), 
+    looping: document.getElementById("checkme").checked,
+    play: function(filename) {
+        this.aud.src=filename;
+        if (document.getElementById("checkme") .checked==true) {
+            this.aud.loop=true;
         }
+        else if(document.getElementById("checkme") .checked==false) {
+            this.aud.loop=false;
+        }
+        this.aud.play();
+    },
+    stop: function(filename) {
+        this.aud.pause();
+        this.aud.currentTime=0;
+    }
+}
     </script>
-    <div id="res"> Results</div>
 </body>
 </html>
