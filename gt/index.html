@@ -7,13 +7,14 @@
     <meta name="author" content="ashley grobler">
     <meta name="keywords" content="accessible, online, guitar, tuner, free">
     <meta name="description" content="Accessible online guitar tuner">
-
     <title>Online Guitar Tuner</title>
+    <script src="./script.js"></script>
 </head>
 <body>
     <h1> Welcome to Online Guitar Tuner.</h1>
     <i> Click "details" if there's something you don't understand.</i>
     <details>
+        <summary> Help</summary>
         <h3> How it works</h3><br/>
         <p> The dropDown is used to select your string.<br/>
         The loop audio checkbox allows you to loop the audio instead of pressing the play button each time.<br/>
@@ -33,27 +34,10 @@
     </select>
     <input type="checkbox" id="checkme"/>
     <label for="checkme"> Loop audio</label>
-    <button onclick="sound.play('./strings/s'+document.getElementById('select_string').value[7]+'.mp3');"> Play</button>
-    <button onclick="sound.stop('./strings/s'+document.getElementById('select_string').value[7]+'.mp3')";> Stop audio</button>
     <script>
-        const sound={
-    aud : new Audio(), 
-    looping: document.getElementById("checkme").checked,
-    play: function(filename) {
-        this.aud.src=filename;
-        if (document.getElementById("checkme") .checked==true) {
-            this.aud.loop=true;
-        }
-        else if(document.getElementById("checkme") .checked==false) {
-            this.aud.loop=false;
-        }
-        this.aud.play();
-    },
-    stop: function(filename) {
-        this.aud.pause();
-        this.aud.currentTime=0;
-    }
-}
+        snd= new sound();
     </script>
+    <button onclick="snd.play('./strings/s'+document.getElementById('select_string').value[7]+'.mp3');"> Play</button>
+    <button onclick="snd.stop();"> Stop audio</button>
 </body>
 </html>
