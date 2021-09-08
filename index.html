@@ -4,13 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Github pages site</title>
+    <meta name="author" content="ashley grobler">
+    <meta name="keywords" content="accessible, online, guitar, tuner, free">
+    <meta name="description" content="Accessible online guitar tuner">
+    <title>Online Guitar Tuner</title>
+    <script src="./script.js"></script>
+    <link rel="stylesheet" href="./styles.css"/>
 </head>
 <body>
-    <h1> Welcome</h1>
-    <p>
-        On here, you can find my accessible guitar tuner, as it is the only project i am actively working on.
+    <h1> Welcome to Online Guitar Tuner.</h1>
+    <i> Click "details" if there's something you don't understand.</i>
+    <details>
+        <summary> Help</summary>
+        <h3> How it works</h3><br/>
+        <p> The dropDown is used to select your string.<br/>
+        The loop audio checkbox allows you to loop the audio instead of pressing the play button each time.<br/>
+        The play button, like the name says, plays the sound to whitch your selected string needs to be tuned.
+        If you want to stop the audio at any time, click the stop button.
     </p>
-    <a href="gt/index.html"> Online guitar tuner.</a>
+    </details>
+    <hr>
+    <label for="select_string"> Select a string.</label>
+    <select id="select_string">
+        <option> String 6(E2)</option>
+        <option> String 5 (A2)</option>
+        <option> String 4 (D3)</option>
+        <option> String 3 (G3)</option>
+        <option> String 2 (B3)</option>
+        <option> String 1 (E4)</option>
+    </select>
+    <input type="checkbox" id="checkme"/>
+    <label for="checkme"> Loop audio</label>
+    <script>
+        snd= new sound();
+    </script>
+    <button onclick="snd.play('./strings/s'+document.getElementById('select_string').value[7]+'.mp3');"> Play</button>
+    <button onclick="snd.stop();"> Stop audio</button>
 </body>
 </html>
