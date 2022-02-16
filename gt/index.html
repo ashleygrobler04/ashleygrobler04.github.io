@@ -25,7 +25,7 @@
     </details>
     <hr>
     <label for="select_string"> Select a string.</label>
-    <select id="select_string">
+    <select id="select_string" onchange="snd.play('./strings/s'+document.getElementById('select_string').value[7]+'.mp3')">
         <option> String 6(E2)</option>
         <option> String 5 (A2)</option>
         <option> String 4 (D3)</option>
@@ -38,7 +38,6 @@
     <script>
         snd= new sound();
     </script>
-    <button onclick="snd.play('./strings/s'+document.getElementById('select_string').value[7]+'.mp3');"> Play</button>
     <button onclick="snd.stop();"> Stop audio</button>
 </body>
 </html>
