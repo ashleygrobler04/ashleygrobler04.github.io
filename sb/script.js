@@ -1,12 +1,11 @@
 'use strict';
-let words = ["test", "hide", "laugh", "run", "drink", "difficult", "person", "spelling", "story", "screen"];
 let chosenWord = "";
 
 function speak(text) {
     speechSynthesis.speak(new SpeechSynthesisUtterance(text));
 }
 function getWord() {
-    const url = "http://ashleygrobler04.pythonanywhere.com/";
+    const url = "https://ashleygrobler04.pythonanywhere.com/";
     fetch(url)
         .then((response) => {
             return response.json();
