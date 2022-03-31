@@ -6,7 +6,7 @@ function speak(text) {
     speechSynthesis.speak(new SpeechSynthesisUtterance(text));
 }
 function getWord() {
-    const url = "http://127.0.0.1:5000/";
+    const url = "http://ashleygrobler04.pythonanywhere.com/";
     fetch(url)
         .then((response) => {
             return response.json();
