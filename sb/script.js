@@ -5,14 +5,18 @@ let chosenWord = "";
 function speak(text) {
     speechSynthesis.speak(new SpeechSynthesisUtterance(text));
 }
-
-//A function to generate random numbers between a given range in js.
-function random(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 function getWord() {
-    return words[random(0, words.length - 1)];
+    const url = "http://127.0.0.1:5000/";
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            chosenWord = data.word;
+        })
+        .catch(function () {
+
+        });
 }
 
 function checkWord(input, word) {
