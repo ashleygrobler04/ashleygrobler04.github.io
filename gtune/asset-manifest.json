@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/static/js/main.37d441b2.js",
-    "index.html": "/index.html",
-    "main.37d441b2.js.map": "/static/js/main.37d441b2.js.map"
+    "main.js": "/gtune/static/js/main.37d441b2.js",
+    "index.html": "/gtune/index.html",
+    "main.37d441b2.js.map": "/gtune/static/js/main.37d441b2.js.map"
   },
   "entrypoints": [
     "static/js/main.37d441b2.js"
