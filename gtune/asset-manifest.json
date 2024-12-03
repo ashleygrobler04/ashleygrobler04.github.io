@@ -1,10 +1,13 @@
 {
   "files": {
-    "main.js": "/gtune/static/js/main.203d6313.js",
+    "main.css": "/gtune/static/css/main.2c624a6b.css",
+    "main.js": "/gtune/static/js/main.c651cefd.js",
     "index.html": "/gtune/index.html",
-    "main.203d6313.js.map": "/gtune/static/js/main.203d6313.js.map"
+    "main.2c624a6b.css.map": "/gtune/static/css/main.2c624a6b.css.map",
+    "main.c651cefd.js.map": "/gtune/static/js/main.c651cefd.js.map"
   },
   "entrypoints": [
-    "static/js/main.203d6313.js"
+    "static/css/main.2c624a6b.css",
+    "static/js/main.c651cefd.js"
   ]
 }
