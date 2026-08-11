@@ -21,7 +21,7 @@ body {
   background-image: url("./img/bg.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 }
 
 h1,
@@ -128,7 +128,7 @@ button:active,
   body {
     padding-top: clamp(7.5rem, 22vw, 10rem);
     padding-bottom: clamp(2.5rem, 12vw, 5rem);
-    background-size: auto 100%;
+    background-size: contain;
   }
 
   h1 {
