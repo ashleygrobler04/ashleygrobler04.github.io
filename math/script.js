@@ -1,0 +1,142 @@
+const questionElement = document.getElementById("question");
+const inputElement = document.getElementById("input");
+const submitButton = document.getElementById("submit");
+const timerElement = document.getElementById("timer");
+const timerSelect = document.getElementById("timerSelect");
+const initializeElement = document.getElementById("initialize");
+
+let left;
+let right;
+let timerId = null;
+let timeRemaining = 20;
+
+// The application must be initialized by the user first.
+let initialized = false;
+
+function speak(text) {
+    if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(utterance);
+    }
+}
+
+function generateQuestion() {
+    left = Math.floor(Math.random() * 12) + 1;
+    right = Math.floor(Math.random() * 12) + 1;
+
+    questionElement.textContent = `${left} × ${right} = ?`;
+
+    inputElement.value = "";
+}
+
+function updateTimerDisplay() {
+    timerElement.textContent = `Time remaining: ${timeRemaining} seconds`;
+}
+
+function startTimer() {
+    // Do not start the timer until the application has been initialized.
+    if (!initialized) {
+        return;
+    }
+
+    clearInterval(timerId);
+
+    timeRemaining = Number(timerSelect.value);
+    updateTimerDisplay();
+
+    timerId = setInterval(() => {
+        timeRemaining--;
+
+        updateTimerDisplay();
+
+        if (timeRemaining <= 0) {
+            clearInterval(timerId);
+
+            const answer = left * right;
+            const message = `Time is up. The answer was ${answer}.`;
+
+            alert(message);
+            speak(message);
+
+            generateQuestion();
+            startTimer();
+        }
+    }, 1000);
+}
+
+function initialize() {
+    // Prevent initialization from happening more than once.
+    if (initialized) {
+        return;
+    }
+
+    initialized = true;
+
+    initializeElement.textContent = "Practice is active.";
+    initializeElement.setAttribute("aria-label", "Practice is active.");
+
+    generateQuestion();
+    startTimer();
+
+    inputElement.focus();
+}
+
+function checkAnswer() {
+    // Ignore answers until initialization has happened.
+    if (!initialized) {
+        return;
+    }
+
+    const userAnswer = Number(inputElement.value.trim());
+    const correctAnswer = left * right;
+
+    clearInterval(timerId);
+
+    if (userAnswer === correctAnswer) {
+        const message = "Correct!";
+
+        alert(message);
+        speak(message);
+    } else {
+        const message = `Incorrect, the answer was ${correctAnswer}.`;
+
+        alert(message);
+        speak(message);
+    }
+
+    generateQuestion();
+    startTimer();
+}
+
+// User initializes the application by activating the div.
+initializeElement.addEventListener("click", initialize);
+
+initializeElement.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        initialize();
+    }
+});
+
+submitButton.addEventListener("click", checkAnswer);
+
+inputElement.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        checkAnswer();
+    }
+});
+
+timerSelect.addEventListener("change", () => {
+    if (initialized) {
+        startTimer();
+    }
+});
+
+// Set up the initial question and timer display,
+// but DON'T start the timer.
+generateQuestion();
+
+timeRemaining = Number(timerSelect.value);
+updateTimerDisplay();

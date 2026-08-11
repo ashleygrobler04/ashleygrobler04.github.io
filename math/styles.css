@@ -1,0 +1,146 @@
+:root {
+  color-scheme: light;
+  font-family: "Trebuchet MS", "Arial Rounded MT Bold", system-ui, sans-serif;
+  color: #563778;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100svh;
+  margin: 0;
+  padding: clamp(9rem, 18vw, 13rem) clamp(1rem, 8vw, 7rem) clamp(3.5rem, 10vw, 7rem);
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: clamp(0.65rem, 1.5vw, 1rem);
+  text-align: center;
+  background-color: #070707;
+  background-image: url("./img/bg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1,
+p,
+#initialize,
+label,
+#timer,
+#question,
+#input,
+#submit,
+#timerSelect {
+  width: min(100%, 35rem);
+}
+
+h1 {
+  margin: 0;
+  color: #e85b88;
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  line-height: 1;
+  text-shadow: 0 2px 0 #fff;
+}
+
+p {
+  margin: 0 0 0.35rem;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  font-weight: 700;
+}
+
+#initialize {
+  padding: 0.7rem 1rem;
+  border: 3px solid #9471bc;
+  border-radius: 1rem;
+  color: #fff;
+  background: #8160aa;
+  box-shadow: 0 4px 0 #5d417f;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#initialize:focus-visible,
+select:focus-visible,
+input:focus-visible,
+button:focus-visible {
+  outline: 4px solid #f4be38;
+  outline-offset: 3px;
+}
+
+label {
+  margin-top: 0.25rem;
+  font-weight: 800;
+  text-align: left;
+}
+
+select,
+input,
+button {
+  min-height: 2.8rem;
+  border: 2px solid #b39bca;
+  border-radius: 0.8rem;
+  font: inherit;
+  font-size: 1rem;
+}
+
+select,
+input {
+  padding: 0.55rem 0.8rem;
+  color: #563778;
+  background: rgb(255 255 255 / 88%);
+}
+
+#timer {
+  padding: 0.35rem;
+  color: #1688a8;
+  font-weight: 800;
+}
+
+#question {
+  min-height: 3.5rem;
+  display: grid;
+  place-items: center;
+  margin-top: 0.25rem;
+  color: #563778;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+button {
+  border-color: #e49d22;
+  color: #5d3d0c;
+  background: #f8c542;
+  box-shadow: 0 4px 0 #d38d14;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+button:active,
+#initialize:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #d38d14;
+}
+
+@media (max-width: 650px) {
+  body {
+    padding-top: clamp(7.5rem, 22vw, 10rem);
+    padding-bottom: clamp(2.5rem, 12vw, 5rem);
+    background-size: auto 100%;
+  }
+
+  h1 {
+    font-size: clamp(1.35rem, 7vw, 1.75rem);
+  }
+
+  p {
+    font-size: 0.82rem;
+  }
+
+  #initialize {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}

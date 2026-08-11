@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Times Tables</title>
+<link rel="stylesheet" href="./styles.css">
+    <script defer src="./script.js"></script>
+</head>
+
+<body>
+    <h1>Times tables</h1>
+
+    <p>Supports multiplication up to the 12 times table.</p>
+
+    <div
+        id="initialize"
+        role="button"
+        tabindex="0"
+        aria-label="Tap to start multiplication practice"
+    >
+        Tap here to start the practice.
+    </div>
+
+    <label for="timerSelect">Choose a timer:</label>
+
+    <select id="timerSelect">
+        <option value="20">20 seconds</option>
+        <option value="10">10 seconds</option>
+        <option value="5">5 seconds</option>
+    </select>
+
+    <div id="timer" aria-live="polite">
+        Time remaining: 20 seconds
+    </div>
+
+    <div id="question"></div>
+
+    <label for="input">Your answer:</label>
+
+    <input
+        type="text"
+        id="input"
+        placeholder="Enter your answer"
+        inputmode="numeric"
+    >
+
+    <button id="submit">
+        Submit answer
+    </button>
+
+</body>
+
+</html>
