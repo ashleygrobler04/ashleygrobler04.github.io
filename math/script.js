@@ -13,6 +13,7 @@ let left;
 let right;
 let timerId = null;
 let timeRemaining = 20;
+let roundActive = false;
 
 // The application must be initialized by the user first.
 let initialized = false;
@@ -30,7 +31,16 @@ function showStatus(message) {
     statusElement.textContent = message;
 }
 
+function pauseTimer() {
+    clearInterval(timerId);
+    timerId = null;
+    roundActive = false;
+}
+
 function showFeedback(result) {
+    // Every completed round pauses before its feedback is displayed.
+    pauseTimer();
+
     const answer = left * right;
     const feedback = {
         correct: {
@@ -59,6 +69,7 @@ function showFeedback(result) {
 }
 
 function continuePractice() {
+    // This is the only action that starts another timed round.
     feedbackDialog.hidden = true;
     inputElement.disabled = false;
     submitButton.disabled = false;
@@ -86,19 +97,23 @@ function startTimer() {
         return;
     }
 
-    clearInterval(timerId);
+    pauseTimer();
 
     timeRemaining = Number(timerSelect.value);
     updateTimerDisplay();
+    roundActive = true;
 
     timerId = setInterval(() => {
-        timeRemaining--;
+        if (!roundActive) {
+            pauseTimer();
+            return;
+        }
+
+        timeRemaining = Math.max(0, timeRemaining - 1);
 
         updateTimerDisplay();
 
-        if (timeRemaining <= 0) {
-            clearInterval(timerId);
-            timerId = null;
+        if (timeRemaining === 0) {
             showFeedback("timeout");
         }
     }, 1000);
@@ -127,14 +142,12 @@ function initialize() {
 
 function checkAnswer() {
     // Ignore answers until initialization has happened.
-    if (!initialized) {
+    if (!initialized || !roundActive) {
         return;
     }
 
     const userAnswer = Number(inputElement.value.trim());
     const correctAnswer = left * right;
-
-    clearInterval(timerId);
 
     showFeedback(userAnswer === correctAnswer ? "correct" : "incorrect");
 }

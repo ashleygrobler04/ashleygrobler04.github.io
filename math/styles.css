@@ -182,25 +182,26 @@ button:active,
   }
 
   #app {
-    top: 25%;
-    right: 16%;
-    bottom: 10%;
-    left: 16%;
-    gap: 0.12rem;
+    top: 22%;
+    right: 13%;
+    bottom: 7%;
+    left: 13%;
+    align-content: space-evenly;
+    gap: clamp(0.28rem, 1.2svh, 0.65rem);
   }
 
   h1 {
     font-size: clamp(1rem, 5vw, 1.35rem);
   }
 
-  #app > p,
-  #status {
-    display: none;
+  #app > p {
+    font-size: clamp(0.58rem, 2.7vw, 0.75rem);
   }
 
   label,
-  #timer {
-    font-size: 0.62rem;
+  #timer,
+  #status {
+    font-size: clamp(0.62rem, 2.8vw, 0.78rem);
   }
 
   #initialize {
@@ -225,7 +226,7 @@ button:active,
   }
 
   #question {
-    min-height: 1.55rem;
+    min-height: 1.8rem;
     font-size: clamp(1.05rem, 5vw, 1.45rem);
   }
 
