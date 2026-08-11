@@ -30,10 +30,25 @@ function showStatus(message) {
     statusElement.textContent = message;
 }
 
-function showFeedback(isCorrect) {
+function showFeedback(result) {
     const answer = left * right;
-    const visualMessage = `${isCorrect ? "Correct!" : "Incorrect."} ${left} × ${right} = ${answer}`;
-    const spokenMessage = `${isCorrect ? "Correct" : "Incorrect"}. ${left} times ${right} equals ${answer}.`;
+    const feedback = {
+        correct: {
+            visual: "Correct!",
+            spoken: "Correct."
+        },
+        incorrect: {
+            visual: "Incorrect. Review the answer:",
+            spoken: "Incorrect. Review the answer."
+        },
+        timeout: {
+            visual: "Time is up. Review the answer:",
+            spoken: "Time is up. Review the answer."
+        }
+    }[result];
+    const equation = `${left} × ${right} = ${answer}`;
+    const visualMessage = `${feedback.visual} ${equation}`;
+    const spokenMessage = `${feedback.spoken} ${left} times ${right} equals ${answer}.`;
 
     feedbackMessage.textContent = visualMessage;
     feedbackDialog.hidden = false;
@@ -83,15 +98,8 @@ function startTimer() {
 
         if (timeRemaining <= 0) {
             clearInterval(timerId);
-
-            const answer = left * right;
-            const message = `Time is up. The answer was ${answer}.`;
-
-            showStatus(message);
-            speak(message);
-
-            generateQuestion();
-            startTimer();
+            timerId = null;
+            showFeedback("timeout");
         }
     }, 1000);
 }
@@ -128,7 +136,7 @@ function checkAnswer() {
 
     clearInterval(timerId);
 
-    showFeedback(userAnswer === correctAnswer);
+    showFeedback(userAnswer === correctAnswer ? "correct" : "incorrect");
 }
 
 // User initializes the application by activating the div.
