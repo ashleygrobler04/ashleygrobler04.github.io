@@ -29,6 +29,7 @@ p,
 #initialize,
 label,
 #timer,
+#status,
 #question,
 #input,
 #submit,
@@ -96,6 +97,12 @@ input {
   padding: 0.35rem;
   color: #1688a8;
   font-weight: 800;
+}
+
+#status {
+  min-height: 1.5rem;
+  color: #5d417f;
+  font-weight: 900;
 }
 
 #question {

@@ -2,6 +2,7 @@ const questionElement = document.getElementById("question");
 const inputElement = document.getElementById("input");
 const submitButton = document.getElementById("submit");
 const timerElement = document.getElementById("timer");
+const statusElement = document.getElementById("status");
 const timerSelect = document.getElementById("timerSelect");
 const initializeElement = document.getElementById("initialize");
 
@@ -20,6 +21,10 @@ function speak(text) {
         const utterance = new SpeechSynthesisUtterance(text);
         window.speechSynthesis.speak(utterance);
     }
+}
+
+function showStatus(message) {
+    statusElement.textContent = message;
 }
 
 function generateQuestion() {
@@ -57,7 +62,7 @@ function startTimer() {
             const answer = left * right;
             const message = `Time is up. The answer was ${answer}.`;
 
-            alert(message);
+            showStatus(message);
             speak(message);
 
             generateQuestion();
@@ -76,6 +81,10 @@ function initialize() {
 
     initializeElement.textContent = "Practice is active.";
     initializeElement.setAttribute("aria-label", "Practice is active.");
+
+    // A user-initiated utterance primes speech synthesis before answer feedback.
+    speak("Started");
+    showStatus("Practice started.");
 
     generateQuestion();
     startTimer();
@@ -97,12 +106,12 @@ function checkAnswer() {
     if (userAnswer === correctAnswer) {
         const message = "Correct!";
 
-        alert(message);
+        showStatus(message);
         speak(message);
     } else {
         const message = `Incorrect, the answer was ${correctAnswer}.`;
 
-        alert(message);
+        showStatus(message);
         speak(message);
     }
 
