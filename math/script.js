@@ -3,6 +3,9 @@ const inputElement = document.getElementById("input");
 const submitButton = document.getElementById("submit");
 const timerElement = document.getElementById("timer");
 const statusElement = document.getElementById("status");
+const feedbackDialog = document.getElementById("feedbackDialog");
+const feedbackMessage = document.getElementById("feedbackMessage");
+const nextQuestionButton = document.getElementById("nextQuestion");
 const timerSelect = document.getElementById("timerSelect");
 const initializeElement = document.getElementById("initialize");
 
@@ -25,6 +28,28 @@ function speak(text) {
 
 function showStatus(message) {
     statusElement.textContent = message;
+}
+
+function showFeedback(isCorrect) {
+    const answer = left * right;
+    const visualMessage = `${isCorrect ? "Correct!" : "Incorrect."} ${left} × ${right} = ${answer}`;
+    const spokenMessage = `${isCorrect ? "Correct" : "Incorrect"}. ${left} times ${right} equals ${answer}.`;
+
+    feedbackMessage.textContent = visualMessage;
+    feedbackDialog.hidden = false;
+    inputElement.disabled = true;
+    submitButton.disabled = true;
+    speak(spokenMessage);
+    nextQuestionButton.focus();
+}
+
+function continuePractice() {
+    feedbackDialog.hidden = true;
+    inputElement.disabled = false;
+    submitButton.disabled = false;
+    generateQuestion();
+    startTimer();
+    inputElement.focus();
 }
 
 function generateQuestion() {
@@ -103,20 +128,7 @@ function checkAnswer() {
 
     clearInterval(timerId);
 
-    if (userAnswer === correctAnswer) {
-        const message = "Correct!";
-
-        showStatus(message);
-        speak(message);
-    } else {
-        const message = `Incorrect, the answer was ${correctAnswer}.`;
-
-        showStatus(message);
-        speak(message);
-    }
-
-    generateQuestion();
-    startTimer();
+    showFeedback(userAnswer === correctAnswer);
 }
 
 // User initializes the application by activating the div.
@@ -130,6 +142,8 @@ initializeElement.addEventListener("keydown", (event) => {
 });
 
 submitButton.addEventListener("click", checkAnswer);
+
+nextQuestionButton.addEventListener("click", continuePractice);
 
 inputElement.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {

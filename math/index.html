@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Times Tables</title>
-<link rel="stylesheet" href="./styles.css?v=2">
-    <script defer src="./script.js?v=2"></script>
+<link rel="stylesheet" href="./styles.css?v=3">
+    <script defer src="./script.js?v=3"></script>
 </head>
 
 <body>
+    <img id="backgroundArt" src="./img/bg.png" alt="" aria-hidden="true">
+
     <h1>Times tables</h1>
 
     <p>Supports multiplication up to the 12 times table.</p>
@@ -38,6 +40,11 @@
     <div id="status" role="status" aria-live="polite"></div>
 
     <div id="question"></div>
+
+    <div id="feedbackDialog" role="dialog" aria-modal="true" aria-labelledby="feedbackMessage" hidden>
+        <p id="feedbackMessage"></p>
+        <button id="nextQuestion" type="button">Next question</button>
+    </div>
 
     <label for="input">Your answer:</label>
 

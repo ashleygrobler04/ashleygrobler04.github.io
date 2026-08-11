@@ -16,12 +16,22 @@ body {
   justify-items: center;
   align-content: center;
   gap: clamp(0.65rem, 1.5vw, 1rem);
+  position: relative;
+  isolation: isolate;
   text-align: center;
   background-color: #070707;
-  background-image: url("./img/bg.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
+}
+
+#backgroundArt {
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 100%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 h1,
@@ -31,6 +41,7 @@ label,
 #timer,
 #status,
 #question,
+#feedbackDialog,
 #input,
 #submit,
 #timerSelect {
@@ -105,6 +116,25 @@ input {
   font-weight: 900;
 }
 
+#feedbackDialog {
+  padding: 1.2rem;
+  border: 3px solid #9471bc;
+  border-radius: 1rem;
+  color: #563778;
+  background: rgb(255 255 255 / 96%);
+  box-shadow: 0 6px 0 #5d417f;
+}
+
+#feedbackDialog[hidden] {
+  display: none;
+}
+
+#feedbackMessage {
+  margin: 0 0 1rem;
+  font-size: clamp(1.2rem, 4vw, 1.6rem);
+  font-weight: 900;
+}
+
 #question {
   min-height: 3.5rem;
   display: grid;
@@ -135,7 +165,6 @@ button:active,
   body {
     padding-top: clamp(7.5rem, 22vw, 10rem);
     padding-bottom: clamp(2.5rem, 12vw, 5rem);
-    background-size: contain;
   }
 
   h1 {
