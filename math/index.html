@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Times Tables</title>
-    <link rel="stylesheet" href="./styles.css?v=7">
-    <script defer src="./script.js?v=7"></script>
+    <link rel="stylesheet" href="./styles.css?v=8">
+    <script defer src="./script.js?v=8"></script>
 </head>
 
 <body>
@@ -16,7 +16,7 @@
         <section id="app" aria-label="Times tables practice">
             <h1>Times tables</h1>
 
-    <p>Supports multiplication up to the 12 times table.</p>
+    <p>Supports multiplication and division up to the 12 times table.</p>
 
     <div
         id="initialize"
@@ -24,7 +24,7 @@
         tabindex="0"
         aria-label="Tap to start multiplication practice"
     >
-        Tap here to start the practice.
+        Tap here to start multiplication practice.
     </div>
 
     <label for="timerSelect">Choose a timer:</label>
@@ -33,6 +33,13 @@
         <option value="20">20 seconds</option>
         <option value="10">10 seconds</option>
         <option value="5">5 seconds</option>
+    </select>
+
+    <label for="modeSelect">Choose an operation:</label>
+
+    <select id="modeSelect">
+        <option value="multiply">Multiplication</option>
+        <option value="divide">Division</option>
     </select>
 
     <div id="timer" aria-live="polite">

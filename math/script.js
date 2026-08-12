@@ -7,10 +7,15 @@ const feedbackDialog = document.getElementById("feedbackDialog");
 const feedbackMessage = document.getElementById("feedbackMessage");
 const nextQuestionButton = document.getElementById("nextQuestion");
 const timerSelect = document.getElementById("timerSelect");
+const modeSelect = document.getElementById("modeSelect");
 const initializeElement = document.getElementById("initialize");
 
 let left;
 let right;
+let mode = "multiply";
+let answer = 0;
+let currentEquation = "";
+let currentSpoken = "";
 let timerId = null;
 let timeRemaining = 20;
 let roundActive = false;
@@ -31,6 +36,18 @@ function showStatus(message) {
     statusElement.textContent = message;
 }
 
+function updateInitializePrompt() {
+    if (initialized) {
+        initializeElement.textContent = "Practice is active.";
+        initializeElement.setAttribute("aria-label", "Practice is active.");
+        return;
+    }
+
+    const operation = modeSelect.value === "divide" ? "division" : "multiplication";
+    initializeElement.textContent = `Tap here to start ${operation} practice.`;
+    initializeElement.setAttribute("aria-label", `Tap to start ${operation} practice.`);
+}
+
 function pauseTimer() {
     clearInterval(timerId);
     timerId = null;
@@ -41,7 +58,6 @@ function showFeedback(result) {
     // Every completed round pauses before its feedback is displayed.
     pauseTimer();
 
-    const answer = left * right;
     const feedback = {
         correct: {
             visual: "Correct!",
@@ -56,9 +72,8 @@ function showFeedback(result) {
             spoken: "Time is up. Review the answer."
         }
     }[result];
-    const equation = `${left} × ${right} = ${answer}`;
-    const visualMessage = `${feedback.visual} ${equation}`;
-    const spokenMessage = `${feedback.spoken} ${left} times ${right} equals ${answer}.`;
+    const visualMessage = `${feedback.visual} ${currentEquation}`;
+    const spokenMessage = `${feedback.spoken} ${currentSpoken}`;
 
     feedbackMessage.textContent = visualMessage;
     feedbackDialog.hidden = false;
@@ -82,7 +97,21 @@ function generateQuestion() {
     left = Math.floor(Math.random() * 12) + 1;
     right = Math.floor(Math.random() * 12) + 1;
 
-    questionElement.textContent = `${left} × ${right} = ?`;
+    if (mode === "divide") {
+        const product = left * right;
+        const divideLeft = Math.random() < 0.5;
+        const divisor = divideLeft ? left : right;
+
+        answer = divideLeft ? right : left;
+        currentEquation = `${product} ÷ ${divisor} = ${answer}`;
+        currentSpoken = `${product} divided by ${divisor} equals ${answer}.`;
+        questionElement.textContent = `${product} ÷ ${divisor} = ?`;
+    } else {
+        answer = left * right;
+        currentEquation = `${left} × ${right} = ${answer}`;
+        currentSpoken = `${left} times ${right} equals ${answer}.`;
+        questionElement.textContent = `${left} × ${right} = ?`;
+    }
 
     inputElement.value = "";
 }
@@ -127,8 +156,7 @@ function initialize() {
 
     initialized = true;
 
-    initializeElement.textContent = "Practice is active.";
-    initializeElement.setAttribute("aria-label", "Practice is active.");
+    updateInitializePrompt();
 
     // A user-initiated utterance primes speech synthesis before answer feedback.
     speak("Started");
@@ -147,7 +175,7 @@ function checkAnswer() {
     }
 
     const userAnswer = Number(inputElement.value.trim());
-    const correctAnswer = left * right;
+    const correctAnswer = answer;
 
     showFeedback(userAnswer === correctAnswer ? "correct" : "incorrect");
 }
@@ -178,8 +206,20 @@ timerSelect.addEventListener("change", () => {
     }
 });
 
+modeSelect.addEventListener("change", () => {
+    mode = modeSelect.value;
+    updateInitializePrompt();
+
+    if (initialized) {
+        generateQuestion();
+        startTimer();
+    }
+});
+
 // Set up the initial question and timer display,
 // but DON'T start the timer.
+mode = modeSelect.value;
+updateInitializePrompt();
 generateQuestion();
 
 timeRemaining = Number(timerSelect.value);
